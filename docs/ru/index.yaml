@@ -2,3 +2,6 @@ title: Шаблон документации
 links:
   - title: Документация
     href: page.md
+  - title: Обо мне
+    href: about.md
+
