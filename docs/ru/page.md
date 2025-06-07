@@ -2,7 +2,6 @@
 
 ```
 openapi: 3.0.0
-<span style="color:red">красный текст</span>
 info:
   version: 1.0.0
   title: Petstore API
