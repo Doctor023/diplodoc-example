@@ -32,7 +32,7 @@
   "main": "scripts/serve.js",
   "scripts": {
     "start": "npm run build:docs && node scripts/serve.js",
-    "build:docs": "yfm --input docs --output docs-html"
+    "build:docs": "yfm --input docs --output docs-html --assets-root . --assets-include 'images/**' --copy-assets"
   },
   "dependencies": {
     "@diplodoc/cli": "^4.55.1",
