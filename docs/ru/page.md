@@ -4,34 +4,34 @@
 openapi: 3.0.0
 info:
   version: 1.0.0
-  title: Petstore API
+  title: API Зоомагазина
   description: |
-    This API allows you to manage pets in a pet store inventory.
-    You can create, retrieve, and list pets with their details.
+    Этот API позволяет управлять животными в инвентаре зоомагазина.
+    Вы можете создавать, получать и просматривать список животных с их деталями.
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
 
 servers:
-  - url: https://api.petstore.com/v1
-    description: Production environment
-  - url: https://staging.api.petstore.com/v1
-    description: Staging environment for testing
+  - url: https://api.zoostore.com/v1
+    description: Продукционная среда
+  - url: https://staging.api.zoostore.com/v1
+    description: Тестовая среда для проверки
 
 paths:
   /pets:
     get:
-      summary: List all pets
+      summary: Получить список всех животных
       description: |
-        Retrieves a paginated list of available pets.
-        Results can be filtered using query parameters.
+        Возвращает постраничный список доступных животных.
+        Результаты могут быть отфильтрованы с помощью параметров запроса.
       operationId: getPets
       tags:
-        - Pets
+        - Животные
       parameters:
         - name: limit
           in: query
-          description: Maximum number of items to return (max 100)
+          description: Максимальное количество возвращаемых элементов (макс. 100)
           required: false
           schema:
             type: integer
@@ -39,10 +39,10 @@ paths:
             format: int32
       responses:
         '200':
-          description: Successful operation
+          description: Успешная операция
           headers:
             x-next:
-              description: Link to the next page of results
+              description: Ссылка на следующую страницу результатов
               schema:
                 type: string
           content:
@@ -50,20 +50,20 @@ paths:
               schema:
                 $ref: '#/components/schemas/Pets'
         default:
-          description: Unexpected error
+          description: Неожиданная ошибка
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
 
     post:
-      summary: Create a pet
-      description: Adds a new pet to the store inventory
+      summary: Добавить животное
+      description: Добавляет новое животное в инвентарь магазина
       operationId: createPet
       tags:
-        - Pets
+        - Животные
       requestBody:
-        description: Pet object that needs to be added
+        description: Объект животного для добавления
         content:
           application/json:
             schema:
@@ -71,9 +71,9 @@ paths:
         required: true
       responses:
         '201':
-          description: Pet created successfully
+          description: Животное успешно добавлено
         default:
-          description: Unexpected error
+          description: Неожиданная ошибка
           content:
             application/json:
               schema:
@@ -81,32 +81,32 @@ paths:
 
   /pets/{petId}:
     get:
-      summary: Get pet by ID
-      description: Returns detailed information about a specific pet
+      summary: Получить животное по ID
+      description: Возвращает детальную информацию о конкретном животном
       operationId: getPetById
       tags:
-        - Pets
+        - Животные
       parameters:
         - name: petId
           in: path
           required: true
-          description: Unique identifier of the pet
+          description: Уникальный идентификатор животного
           schema:
             type: string
             format: uuid
       responses:
         '200':
-          description: Successful operation
+          description: Успешная операция
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Pet'
         '400':
-          description: Invalid ID supplied
+          description: Указан неверный ID
         '404':
-          description: Pet not found
+          description: Животное не найдено
         default:
-          description: Unexpected error
+          description: Неожиданная ошибка
           content:
             application/json:
               schema:
@@ -116,7 +116,7 @@ components:
   schemas:
     Pet:
       type: object
-      description: A pet in the inventory
+      description: Животное в инвентаре
       required:
         - id
         - name
@@ -124,32 +124,32 @@ components:
         id:
           type: integer
           format: int64
-          description: Unique identifier for the pet
+          description: Уникальный идентификатор животного
           example: 12345
         name:
           type: string
-          description: Name of the pet
-          example: "Fluffy"
+          description: Имя животного
+          example: "Барсик"
         tag:
           type: string
-          description: Category or type of pet
-          example: "dog"
+          description: Категория или тип животного
+          example: "кот"
         status:
           type: string
-          description: Current availability status
+          description: Текущий статус доступности
           enum: [available, pending, sold]
           default: available
 
     Pets:
       type: array
-      description: List of pets with pagination support
+      description: Список животных с поддержкой пагинации
       maxItems: 100
       items:
         $ref: '#/components/schemas/Pet'
 
     Error:
       type: object
-      description: Standard error response
+      description: Стандартный ответ об ошибке
       required:
         - code
         - message
@@ -157,23 +157,23 @@ components:
         code:
           type: integer
           format: int32
-          description: HTTP status code
+          description: HTTP код статуса
           example: 404
         message:
           type: string
-          description: Error description
-          example: "Pet not found"
+          description: Описание ошибки
+          example: "Животное не найдено"
         details:
           type: string
-          description: Additional error details
-          example: "The requested pet ID was not found in the database"
+          description: Дополнительные детали ошибки
+          example: "Запрошенный ID животного не найден в базе данных"
 
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
       in: header
       name: X-API-Key
-      description: API key for authentication
+      description: API-ключ для аутентификации
 
 security:
   - ApiKeyAuth: []
