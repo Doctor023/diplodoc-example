@@ -31,9 +31,9 @@
   "license": "MIT",
   "main": "scripts/serve.js",
   "scripts": {
-    "start": "npm run build:docs && node scripts/serve.js",
-  "build:docs": "yfm --input docs --output build --assets-include '_images/**' --copy-assets"
-  },
+  "start": "npm run build:docs && node scripts/serve.js",
+  "build:docs": "yfm --input docs --output build --assets-root . --assets-include '_images/**' --copy-assets --assets-dest build/_images"
+},
   "dependencies": {
     "@diplodoc/cli": "^4.55.1",
     "chokidar": "^3.5.3",
